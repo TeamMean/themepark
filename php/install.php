@@ -1,6 +1,6 @@
 <?php
 
-  $conf_arr = parse_ini_file("database.ini");
+  $conf_arr = parse_ini_file("../../database.ini");
   $con = new mysqli("localhost", $conf_arr['user'], $conf_arr['password']);
   echo $con->error;
   //Drop the existing database

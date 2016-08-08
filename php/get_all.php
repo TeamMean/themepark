@@ -53,9 +53,35 @@
   $collection_at['name'] = "attraction";
   $collection_at['data'] = $collection_curr;
 
+  //Getting all hours data
+  $collection_curr = [];
+  $res = $con->query("SELECT * FROM hours JOIN employee ON employee.emp_num = hours.emp_num JOIN attraction ON attraction.attract_no = hours.attract_no JOIN themepark ON themepark.park_code = attraction.park_code;");
+  while($row = $res->fetch_assoc())
+  {
+    $row['emp_passwd'] = "";
+    $collection_curr[] = $row;
+  }
+
+  $collection_hr['name'] = "hours";
+  $collection_hr['data'] = $collection_curr;
+
+  //Getting all employees
+  $collection_curr = [];
+  $res = $con->query("SELECT * FROM employee;");
+  while($row = $res->fetch_assoc())
+  {
+    $row['emp_passwd'] = "";
+    $collection_curr[] = $row;
+  }
+
+  $collection_em['name'] = "employee";
+  $collection_em['data'] = $collection_curr;
+
   $collections[] = $collection_tp;
   $collections[] = $collection_tk;
   $collections[] = $collection_at;
+  $collections[] = $collection_hr;
+  $collections[] = $collection_em;
 
   echo json_encode($collections);
 ?>

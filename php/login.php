@@ -1,7 +1,7 @@
 <?php
   session_start();
-  $data = file_get_contents("php://input");
-  echo $data;
+  $_SESSION['emp_num'] = 102;
+  $_SESSION['password'] = "abc";
   $conf_arr = parse_ini_file("../../database.ini");
   $con = new mysqli("localhost", $conf_arr['user'], $conf_arr['password']);
 

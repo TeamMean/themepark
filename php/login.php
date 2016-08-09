@@ -1,6 +1,7 @@
 <?php
   session_start();
-
+  $data = file_get_contents("php://input");
+  echo $data;
   $conf_arr = parse_ini_file("../../database.ini");
   $con = new mysqli("localhost", $conf_arr['user'], $conf_arr['password']);
 
@@ -28,15 +29,7 @@
   }
   else
   {
-    echo "You are not authorized to see this.";
+    //echo "You are not authorized to see this.";
+    var_dump($_POST);
   } 
 ?>
-
-<html>
-<body>
-<form action="" method="POST">
-  <input type="text" placeholder="Employee Number" name="emp_num">
-  <input type="password" placeholder="Password" name="password">
-  <input type="submit" value="Login">
-</form>
-</html>

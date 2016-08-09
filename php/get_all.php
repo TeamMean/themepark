@@ -82,6 +82,6 @@
   $collections[] = $collection_at;
   $collections[] = $collection_hr;
   $collections[] = $collection_em;
-
+  
   echo json_encode($collections);
 ?>

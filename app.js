@@ -1,8 +1,5 @@
 var app = angular.module('themepark', ['ui.router']);
 
-
-
-
 app.controller('MainCtrl', [
 '$scope',
 '$http',
@@ -43,6 +40,36 @@ function($scope,$http){
     $scope.park_name = '';
     $scope.park_city = '';
     $scope.park_country = '';
+  }
+  $scope.addattraction = function(){
+    var data = {
+      "attract_no": $scope.attraction_no,
+			"attract_name": $scope.attraction_name,
+			"attract_age": $scope.attraction_age,
+			"attract_capacity": $scope.attraction_capacity,
+			"park_code": $scope.attraction_park_code
+    };
+    var url = 'php/add_attraction.php';
+    var config = {
+      headers : {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post(url, data, config)
+    .success(function (data, status, headers, config) {
+      $scope.PostDataResponse = "Successfully created new attraction";
+      $scope.resetattraction();
+    })
+    .error(function (data, status, header, config) {
+      $scope.ResponseDetails = "An error occured"
+    });
+  };
+  $scope.resetattraction = function(){
+    $scope.attraction_no = '';
+    $scope.attraction_name = '';
+    $scope.attraction_age = '';
+    $scope.attraction_capacity = '';
+    $scope.attraction_park_code = '';
   }
   $scope.adultquantity=0;
   $scope.adultprice=0;

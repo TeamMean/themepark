@@ -194,23 +194,29 @@
 </div>
 <form>
   <div class="form-group">
-    <label for="attractioncode">Code</label>
-    <input type="number" class="form-control" name="attractioncode" id="attractioncode" placeholder="Code">
+    <label for="attraction_park_code">Park</label>
+    <select ng-model="attraction_park_code" class="form-control">
+      <option ng-repeat="park in parks" value="{{park.park_code}}">{{park.park_name}}</option>
+    </select>
   </div>
   <div class="form-group">
-    <label for="attractionname">Name</label>
-    <input type="text" class="form-control" id="attractionname" name="attractionname" placeholder="Name">
+    <label for="attraction_no">Code</label>
+    <input type="number" class="form-control" ng-model="attraction_no" id="attraction_no" placeholder="Code">
   </div>
   <div class="form-group">
-    <label for="attractionage">Age</label>
-    <input type="number" class="form-control" id="attractionage" name="attractionage" placeholder="Age">
+    <label for="attraction_name">Name</label>
+    <input type="text" class="form-control" id="attraction_name" ng-model="attraction_name" placeholder="Name">
   </div>
   <div class="form-group">
-    <label for="attractioncapacity">Capacity</label>
-    <input type="number" class="form-control" id="attractioncapacity" name="attractioncapacity" placeholder="Capacity">
+    <label for="attraction_age">Age</label>
+    <input type="number" class="form-control" id="attraction_age" ng-model="attraction_age" placeholder="Age">
   </div>
-  <button type="submit" class="btn btn-success">Save</button>
-  <a role="button" class="btn btn-danger">Reset</a>
+  <div class="form-group">
+    <label for="attraction_capacity">Capacity</label>
+    <input type="number" class="form-control" id="attraction_capacity" ng-model="attraction_capacity" placeholder="Capacity">
+  </div>
+  <a ng-click="addattraction()" class="btn btn-success">Save</a>
+  <a ng-click="resetattraction()" class="btn btn-danger">Reset</a>
 </form>
 </script>
 <script type="text/ng-template" id="/employees.html">
@@ -261,7 +267,7 @@
       <input type="text" class="form-control" id="employeelname" name="employeelname" placeholder="Last Name">
     </div>
     <div class="form-group">
-      <label for="employeentel">Telephone</label>
+      <label for="employeetel">Telephone</label>
       <input type="tel" class="form-control" id="employeentel" name="employeentel" placeholder="Telephone">
     </div>
   </div>

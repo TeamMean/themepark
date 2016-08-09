@@ -20,10 +20,10 @@ function($scope,$http){
     var data = {
       "park_code":$scope.park_code,
       "park_name":$scope.park_name,
-      "park_city":$scope.park_country,
+      "park_city":$scope.park_city,
       "park_country":$scope.park_country
     };
-    var url = 'add_park.php';
+    var url = 'php/add_park.php';
     var config = {
       headers : {
         'Content-Type': 'application/json;charset=utf-8;'
@@ -32,10 +32,17 @@ function($scope,$http){
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully created new park";
+      $scope.resetpark();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
     });
+  };
+  $scope.resetpark = function(){
+    $scope.park_code = '';
+    $scope.park_name = '';
+    $scope.park_city = '';
+    $scope.park_country = '';
   }
   $scope.adultquantity=0;
   $scope.adultprice=0;

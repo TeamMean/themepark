@@ -44,8 +44,10 @@
     ticket_no 	INT AUTO_INCREMENT PRIMARY KEY,
     ticket_price 	FLOAT DEFAULT 0.00 NOT NULL,
     ticket_type	VARCHAR(10),
+    emp_num INT,
     park_code	VARCHAR(10),
-    CONSTRAINT 	FK_ticket_park FOREIGN KEY(park_code) REFERENCES themepark(park_code))
+    CONSTRAINT 	FK_ticket_park FOREIGN KEY(park_code) REFERENCES themepark(park_code),
+    CONSTRAINT	FK_ticket_employee FOREIGN KEY (emp_num) REFERENCES employee(emp_num))
   ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_bin;";
   $con->query($query);
   echo $con->error;
@@ -82,7 +84,7 @@
   $con->query($query);
 
   //Create the tickets
-  $query = "INSERT INTO ticket VALUES (4668,24.99,'Adult','SP4533'), (13001,14.99,'Child','FR1001'), (13002,34.99,'Adult','FR1001'), (13003,34.99,'Adult','FR1001'), (18721,14.99,'Child','FR1001'), (18722,14.99,'Child','FR1001'), (18723,20.99,'Senior','FR1001'), (18724,34.99,'Adult','FR1001'), (32450,24.99,'Adult','SP4533'), (45767,24.99,'Adult','SP4533'), (67832,18.56,'Child','ZA1342'), (67833,28.67,'Adult','ZA1342'), (67855,18.56,'Child','ZA1342'), (88567,22.50,'Child','UK3452'), (88568,42.10,'Adult','UK3452'), (89720,22.50,'Child','UK3452'), (89723,22.50,'Child','UK3452'), (89725,22.50,'Child','UK3452'), (89728,42.10,'Adult','UK3452')";
+  $query = "INSERT INTO ticket VALUES (4668,24.99,'Adult', 106, 'SP4533'), (13001,14.99,'Child', 100, 'FR1001'), (13002,34.99,'Adult', 100, 'FR1001'), (13003,34.99,'Adult', 103, 'FR1001'), (18721,14.99,'Child', 103, 'FR1001'), (18722,14.99,'Child', 103, 'FR1001'), (18723,20.99,'Senior', 104, 'FR1001'), (18724,34.99,'Adult', 102, 'FR1001'), (32450,24.99,'Adult', 102, 'SP4533'), (45767,24.99,'Adult', 101, 'SP4533'), (67832,18.56,'Child', 105, 'ZA1342'), (67833,28.67,'Adult', 105, 'ZA1342'), (67855,18.56,'Child', 101, 'ZA1342'), (88567,22.50,'Child', 102, 'UK3452'), (88568,42.10,'Adult', 100, 'UK3452'), (89720,22.50,'Child', 102, 'UK3452'), (89723,22.50,'Child', 102, 'UK3452'), (89725,22.50,'Child', 102, 'UK3452'), (89728,42.10,'Adult', 102, 'UK3452')";
   $con->query($query);
 
   //Create the attractions

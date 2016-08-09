@@ -1,4 +1,5 @@
 <?php
+  session_start();
   $conf_arr = parse_ini_file("../../database.ini");
   $con = new mysqli("localhost", $conf_arr['user'], $conf_arr['password']);
   echo $con->error;
@@ -33,7 +34,7 @@
 
   //Getting the ticket data  
   $collection_curr = [];
-  $res = $con->query("SELECT * FROM ticket LEFT JOIN themepark ON ticket.park_code = themepark.park_code;");
+  $res = $con->query("SELECT * FROM ticket LEFT JOIN themepark ON ticket.park_code = themepark.park_code LEFT JOIN employee ON employee.emp_num = ticket.emp_num;");
   while($row = $res->fetch_assoc())
   {
     $collection_curr[] = $row;
@@ -83,5 +84,13 @@
   $collections[] = $collection_hr;
   $collections[] = $collection_em;
   
-  echo json_encode($collections);
+  if( isset($_SESSION['emp_num']) && isset($_SESSION['password']))
+  {
+    echo json_encode($collections);
+  }
+  else
+  {
+    $collecitons = [];
+    echo json_encode([]);
+  }
 ?>

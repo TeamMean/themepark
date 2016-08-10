@@ -28,35 +28,35 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
+          <li ng-show="privilege==2" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parks <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#/newpark">New Park</a></li>
               <li><a href="#/parks">View Parks</a></li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li ng-show="privilege==2" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attractions <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#/newattraction">New Attraction</a></li>
               <li><a href="#/attractions">View Attractions</a></li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li ng-show="privilege==2" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Employees <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#/newemployee">New Employee</a></li>
               <li><a href="#/employees">View Employees</a></li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li ng-show="privilege==1" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tickets <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#/newticket">New Ticket</a></li>
               <li><a href="#/tickets">View Tickets</a></li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li ng-show="privilege==1" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hours <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#/newhour">New Hours</a></li>
@@ -65,8 +65,7 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#/login">Login</a></li>
-          <li><a href="#">Logout</a></li>
+          <li ng-show="privilege"><a href="#">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -409,6 +408,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Employee No</th>
       <th>Date</th>
       <th>Attraction</th>
       <th>Rate</th>
@@ -419,12 +419,20 @@
   </thead>
   <tbody>
     <tr ng-repeat="hour in hours">
-      <td>{{hour.date_worked}}</td>
-      <td>{{hour.attract_name}}</td>
-      <td>{{hour.hour_rate}}</td>
-      <td>{{hour.hours_per_attract}}</td>
-      <td><a class="btn btn-info">edit</a></td>
-      <td><a class="btn btn-danger">delete</a></td>
+      <td>{{hour.emp_num}}</td>
+      <td ng-hide="hour.edit">{{hour.date_worked}}</td>
+      <td ng-hide="hour.edit">{{hour.attract_name}}</td>
+      <td ng-hide="hour.edit">{{hour.hour_rate}}</td>
+      <td ng-hide="hour.edit">{{hour.hours_per_attract}}</td>
+      <td ng-hide="hour.edit"><a ng-click="hour.edit=true" class="btn btn-info">edit</a></td>
+      <td ng-hide="hour.edit"><a class="btn btn-danger">delete</a></td>
+
+      <td ng-show="hour.edit"><input type="date" class="form-control" ng-model="hour.date_worked"></td>
+      <td ng-show="hour.edit"><input type="text" class="form-control" ng-model="hour.attract_name"></td>
+      <td ng-show="hour.edit"><input type="number" class="form-control" ng-model="hour.hour_rate"></td>
+      <td ng-show="hour.edit"><input type="number" class="form-control" ng-model="hour.hours_per_attract"></td>
+      <td ng-show="hour.edit"><a ng-click="edithours(hour);hour.edit=false" class="btn btn-success">save</a><td>
+
     </tr>
   </tbody>
 </table>

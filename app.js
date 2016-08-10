@@ -230,6 +230,23 @@ $scope.addhours = function(){
   };
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
+    $scope.PostDataResponse = "Successfully changed hours";
+    $scope.resethours();
+  })
+  .error(function (data, status, header, config) {
+    $scope.ResponseDetails = "An error occured"
+  });
+}
+
+$scope.edithours = function(data){
+  var url = 'php/edithours.php';
+  var config = {
+    headers : {
+      'Content-Type': 'application/json;charset=utf-8;'
+    }
+  };
+  $http.post(url, data, config)
+  .success(function (data, status, headers, config) {
     $scope.PostDataResponse = "Successfully added hours";
     $scope.resethours();
   })
@@ -237,6 +254,57 @@ $scope.addhours = function(){
     $scope.ResponseDetails = "An error occured"
   });
 }
+
+$scope.deleteattract = function(data){
+  var url = 'php/delete_attract.php';
+  var config = {
+    headers : {
+      'Content-Type': 'application/json;charset=utf-8;'
+    }
+  };
+  $http.post(url, data, config)
+  .success(function (data, status, headers, config) {
+    $scope.PostDataResponse = "Successfully delete attraction";
+    $scope.resethours();
+  })
+  .error(function (data, status, header, config) {
+    $scope.ResponseDetails = "An error occured"
+  });
+};
+
+$scope.deleteempl = function(data){
+  var url = 'php/delete_emp.php';
+  var config = {
+    headers : {
+      'Content-Type': 'application/json;charset=utf-8;'
+    }
+  };
+  $http.post(url, data, config)
+  .success(function (data, status, headers, config) {
+    $scope.PostDataResponse = "Successfully deleted employee";
+    $scope.resethours();
+  })
+  .error(function (data, status, header, config) {
+    $scope.ResponseDetails = "An error occured"
+  });
+};
+
+$scope.deletehour = function(data){
+  var url = 'php/delete_hours.php';
+  var config = {
+    headers : {
+      'Content-Type': 'application/json;charset=utf-8;'
+    }
+  };
+  $http.post(url, data, config)
+  .success(function (data, status, headers, config) {
+    $scope.PostDataResponse = "Successfully deleted hours";
+    $scope.resethours();
+  })
+  .error(function (data, status, header, config) {
+    $scope.ResponseDetails = "An error occured"
+  });
+};
 
 $scope.resethours = function(){
   $scope.hour_attraction_code = '';

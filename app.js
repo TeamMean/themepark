@@ -37,6 +37,7 @@ function($scope,$http){
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully created new park";
       $scope.resetpark();
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
@@ -53,7 +54,7 @@ function($scope,$http){
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully made changes to park";
-      $scope.resetpark();
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.PostDataResponse = "An error occured"
@@ -84,6 +85,7 @@ function($scope,$http){
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully created new attraction";
       $scope.resetattraction();
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
@@ -100,7 +102,7 @@ function($scope,$http){
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully modified attractions";
-      $scope.resetattraction();
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
@@ -116,8 +118,8 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
-      $scope.PostDataResponse = "Successfully created new employee";
-      $scope.resetemployee();
+      $scope.PostDataResponse = "Successfully modified employee";
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
@@ -154,6 +156,7 @@ function($scope,$http){
       .success(function (data, status, headers, config) {
         $scope.PostDataResponse = "Successfully created new employee";
         $scope.resetemployee();
+        $scope.login();
       })
       .error(function (data, status, header, config) {
         $scope.ResponseDetails = "An error occured"
@@ -193,6 +196,7 @@ function($scope,$http){
     .success(function (data, status, headers, config) {
       $scope.PostDataResponse = "Successfully created new tickets";
       $scope.resettickets();
+      $scope.login();
     })
     .error(function (data, status, header, config) {
       $scope.ResponseDetails = "An error occured"
@@ -232,6 +236,7 @@ $scope.addhours = function(){
   .success(function (data, status, headers, config) {
     $scope.PostDataResponse = "Successfully changed hours";
     $scope.resethours();
+    $scope.login();
   })
   .error(function (data, status, header, config) {
     $scope.ResponseDetails = "An error occured"
@@ -247,8 +252,8 @@ $scope.edithours = function(data){
   };
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
-    $scope.PostDataResponse = "Successfully added hours";
-    $scope.resethours();
+    $scope.PostDataResponse = "Successfully modified hours";
+    $scope.login();
   })
   .error(function (data, status, header, config) {
     $scope.ResponseDetails = "An error occured"
@@ -265,7 +270,7 @@ $scope.deleteattract = function(data){
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
     $scope.PostDataResponse = "Successfully delete attraction";
-    $scope.resethours();
+    $scope.login();
   })
   .error(function (data, status, header, config) {
     $scope.ResponseDetails = "An error occured"
@@ -282,7 +287,7 @@ $scope.deleteempl = function(data){
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
     $scope.PostDataResponse = "Successfully deleted employee";
-    $scope.resethours();
+    $scope.login();
   })
   .error(function (data, status, header, config) {
     $scope.ResponseDetails = "An error occured"
@@ -299,7 +304,7 @@ $scope.deletehour = function(data){
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
     $scope.PostDataResponse = "Successfully deleted hours";
-    $scope.resethours();
+    $scope.login();
   })
   .error(function (data, status, header, config) {
     $scope.ResponseDetails = "An error occured"

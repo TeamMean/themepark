@@ -1,21 +1,21 @@
 <?php
   session_start();
-  $_SESSION['emp_num'] = 102;
-  $_SESSION['password'] = "abc";
+  $data = json_decode(file_get_contents("php://input"));
   $conf_arr = parse_ini_file("../../database.ini");
   $con = new mysqli("localhost", $conf_arr['user'], $conf_arr['password']);
 
   $con->query("USE ".$conf_arr['database'].";");
 
   //Checking if there are login credentials
-  if(isset($_POST['emp_num']) && isset($_POST['password']))
+  if($data->{'emp_num'} && $data->{'password'})
   {
-    $query = "SELECT * FROM employee WHERE emp_num = ".$_POST['emp_num']." AND emp_passwd = '".hash("sha512", $_POST['emp_num'].$_POST['password'])."';";
+    $query = "SELECT * FROM employee WHERE emp_num = ".$data->{'emp_num'}." AND emp_passwd = '".hash("sha512", $data->{'emp_num'}.$data->{'password'})."';";
     $res = $con->query($query);
     if ($res->num_rows == 1)
     {
-      $_SESSION['emp_num'] = $_POST['emp_num'];
-      $_SESSION['password'] = hash("sha512", $_POST['emp_num'].$_POST['password']);
+      $row = $res->fetch_assoc();
+      $_SESSION['emp_num'] = $row['emp_num'];
+      $_SESSION['password'] = $row['emp_passwd'];
     }
   }
 
@@ -30,6 +30,6 @@
   else
   {
     //echo "You are not authorized to see this.";
-    var_dump($_POST);
+    var_dump($data);
   } 
 ?>

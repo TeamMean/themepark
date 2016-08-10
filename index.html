@@ -65,7 +65,7 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li ng-show="privilege"><a href="#">Logout</a></li>
+          <li ng-show="privilege"><a href="/php/logout.php">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -204,7 +204,7 @@
       <td ng-hide="attraction.edit">{{attraction.attract_capacity}}</td>
       <td ng-show="attraction.edit"><input type="number" ng-model="attraction.attract_capacity" class="form-control"></td>
       <td ng-hide="attraction.edit"><a ng-click="attraction.edit = true" class="btn btn-warning">Edit</a>
-      <td ng-show="attraction.edit"><a ng-click="updatepark(attraction); attraction.edit=false" class="btn btn-success">Save</a>
+      <td ng-show="attraction.edit"><a ng-click="editattraction(attraction); attraction.edit=false" class="btn btn-success">Save</a>
       <td ng-hide="attraction.edit"><a class="btn btn-danger">delete</a></td>
     </tr>
   </tbody>

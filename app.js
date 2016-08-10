@@ -6,7 +6,18 @@ app.controller('MainCtrl', [
 function($scope,$http){
   var data = null;
   $scope.login = function(){
-    $http.get('sample.json').success(function(tdata) {
+    var d = {
+      "emp_num": $scope.loginnumber,
+      "password": $scope.loginpassword
+    }
+
+    var config = { 
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post('php/login.php', d, config).success(function(tdata) {
+      alert(tdata);
       data = tdata;
       $scope.parks = data.all_data[0].data;
       $scope.tickets = data.all_data[1].data;
@@ -53,6 +64,7 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
+      //alert(data);
       $scope.PostDataResponse = "Successfully made changes to park";
       $scope.login();
     })
@@ -101,16 +113,19 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
+      //alert(data);
       $scope.PostDataResponse = "Successfully modified attractions";
       $scope.login();
     })
     .error(function (data, status, header, config) {
+      //alert("Error");
       $scope.ResponseDetails = "An error occured"
     });
   };
 
   $scope.editemployee = function(data){
-    var url = 'php/addemployee.php';
+    var url = 'php/editemployee.php';
+    //alert(JSON.stringify(data));
     var config = {
       headers : {
         'Content-Type': 'application/json;charset=utf-8;'
@@ -118,6 +133,7 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
+      console.log(data);
       $scope.PostDataResponse = "Successfully modified employee";
       $scope.login();
     })
@@ -154,7 +170,8 @@ function($scope,$http){
       };
       $http.post(url, data, config)
       .success(function (data, status, headers, config) {
-        $scope.PostDataResponse = "Successfully created new employee";
+        //alert(data);
+	$scope.PostDataResponse = "Successfully created new employee";
         $scope.resetemployee();
         $scope.login();
       })
@@ -184,6 +201,7 @@ function($scope,$http){
       "adults": {"quantity":$scope.adultquantity,"price":$scope.adultprice},
       "children":{"quantity":$scope.childquantity,"price":$scope.childprice},
       "seniors":{"quantity":$scope.seniorquantity,"price":$scope.seniorprice},
+      "park_code": $scope.ticket_park_code,
       "emp_num": $scope.user[2].data[0].emp_num
     };
     var url = 'php/addtickets.php';
@@ -194,6 +212,7 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
+      //alert(data);
       $scope.PostDataResponse = "Successfully created new tickets";
       $scope.resettickets();
       $scope.login();
@@ -219,6 +238,7 @@ function($scope,$http){
 }
 
 $scope.addhours = function(){
+  //alert("Adding hours...");
   var data = {
     "attract_no": $scope.hour_attraction_code,
     "date_worked": $scope.date_worked,
@@ -234,11 +254,13 @@ $scope.addhours = function(){
   };
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
+    //alert(data);
     $scope.PostDataResponse = "Successfully changed hours";
     $scope.resethours();
     $scope.login();
   })
   .error(function (data, status, header, config) {
+    //alert("Error");
     $scope.ResponseDetails = "An error occured"
   });
 }
@@ -252,6 +274,7 @@ $scope.edithours = function(data){
   };
   $http.post(url, data, config)
   .success(function (data, status, headers, config) {
+    //alert(data);
     $scope.PostDataResponse = "Successfully modified hours";
     $scope.login();
   })

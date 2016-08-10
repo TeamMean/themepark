@@ -11,7 +11,7 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <title>Themepark</title>
 </head>
-<body ng-app="themepark">
+<body ng-app="themepark" ng-controller="MainCtrl">
   <nav class="navbar navbar-default navbar-static-top navbar-inverse">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,8 +71,22 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="container">
+  <div ng-show="privilege > 0" class="container ng-show">
     <ui-view></ui-view>
+  </div>
+  <div ng-hide="privilege > 0" class="container ng-hide">
+    <h1>Please login</h1>
+    <form>
+      <div class="form-group">
+        <label for="loginnumber">Employee Number</label>
+        <input type="number" class="form-control" id="loginnumber" ng-model="loginnumber" placeholder="Employee Number"\>
+      </div>
+      <div class="form-group">
+        <label for="loginpassword">Password</label>
+        <input type="password" class="form-control" id="loginpassword" ng-model="loginpassword" placeholder="Password"\>
+      </div>
+      <a ng-click="login()" class="btn btn-success">Login</a>
+    </form>
   </div>
   <script type="text/ng-template" id="/dashboard.html">
     <div class="row">
@@ -127,10 +141,14 @@
   <tbody>
     <tr ng-repeat="park in parks">
       <td>{{park.park_code}}</td>
-      <td>{{park.park_name}}</td>
-      <td>{{park.park_city}}</td>
-      <td>{{park.park_city}}</td>
-      <td><a class="btn btn-info">Edit</a>
+      <td ng-hide="park.edit">{{park.park_name}}</td>
+      <td ng-show="park.edit"><input class="form-control" type="text" ng-model="park.park_name"></td>
+      <td ng-hide="park.edit">{{park.park_city}}</td>
+      <td ng-show="park.edit"><input class="form-control" type="text" ng-model="park.park_city"></td>
+      <td ng-hide="park.edit">{{park.park_country}}</td>
+      <td ng-show="park.edit"><input class="form-control" type="text" ng-model="park.park_country"></td>
+      <td ng-hide="park.edit"><a ng-click="park.edit = true" class="btn btn-danger">Edit</a>
+      <td ng-show="park.edit"><a ng-click="updatepark(park); park.edit=false" class="btn btn-success">Save</a>
     </tr>
   </tbody>
 </table>
@@ -322,6 +340,12 @@
   <h1>New Ticket</h1>
 </div>
 <form>
+  <div class="form-group">
+    <label for="ticket_park_code">Park</label>
+    <select ng-model="ticket_park_code" class="form-control">
+      <option ng-repeat="park in parks" value="{{park.park_code}}">{{park.park_name}}</option>
+    </select>
+  </div>
   <table>
     <thead>
       <tr>
@@ -358,8 +382,9 @@
       </tr>
     </tbody>
   </table>
-  <button type="submit" class="btn btn-success">Confirm</button>
-  <a role="button" class="btn btn-danger">Reset</a>
+  <a ng-click="addtickets()" class="btn btn-success">Confirm</button>
+  <a ng-click="resettickets()" class="btn btn-danger">Reset</a>
+  <a ng-click="resetalltickets()" class="btn btn-danger pull-right">Reset All</a>
 </form>
 </script>
 <script type="text/ng-template" id="/hours.html">
@@ -391,27 +416,30 @@
 </script>
 <script type="text/ng-template" id="/newhour.html">
 <div class="page-header">
-  <h1>New Hour</h1>
+  <h1>New Hours</h1>
 </div>
+
 <form>
   <div class="form-group">
-    <label for="hourdate">Date</label>
-    <input type="date" class="form-control" ng-model="hourdate" id="hourdate" placeholder="Date">
+    <label for="date_worked">Date</label>
+    <input type="date" class="form-control" ng-model="date_worked" id="date_worked" placeholder="Date">
   </div>
   <div class="form-group">
-    <label for="hourattraction">Attraction</label>
-    <input type="text" class="form-control" id="hourattraction" ng-model="hourattraction" placeholder="Attraction">
+    <label for="hour_attraction_code">Attraction</label>
+    <select ng-model="hour_attraction_code" class="form-control">
+      <option ng-repeat="attraction in attractions" value="{{attraction.attract_no}}">{{attraction.attract_name}} - {{attraction.park_name}}</option>
+    </select>
   </div>
   <div class="form-group">
-    <label for="hourrate">Rate</label>
-    <input type="number" class="form-control" id="hourrate" ng-model="hourrate" placeholder="Rate">
+    <label for="hour_rate">Rate</label>
+    <input type="number" class="form-control" id="hour_rate" ng-model="hour_rate" placeholder="Rate">
   </div>
   <div class="form-group">
-    <label for="hourhours">Hours</label>
-    <input type="number" class="form-control" id="hourhours" ng-model="hourhours" placeholder="Hours">
+    <label for="hours_per_attract">Hours</label>
+    <input type="number" class="form-control" id="hours_per_attract" ng-model="hours_per_attract" placeholder="Hours">
   </div>
-  <button type="submit" class="btn btn-success">Save</button>
-  <a role="button" class="btn btn-danger">Reset</a>
+  <a ng-click="addhours()" class="btn btn-success">Save</button>
+  <a ng-click="resethours()" class="btn btn-danger">Reset</a>
 </form>
 </script>
 <script type="text/ng-template" id="/login.html">
@@ -427,7 +455,8 @@
     <label for="loginpassword">Password</label>
     <input type="password" class="form-control" id="loginpassword" ng-model="loginpassword" placeholder="Password"\>
   </div>
-  <button type="submit" class="btn btn-success">Login</button>
+  <a ng-click="login()" class="btn btn-success">Login</a>
+</form>
 </script>
 </body>
 </html>

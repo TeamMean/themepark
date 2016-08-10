@@ -5,14 +5,21 @@ app.controller('MainCtrl', [
 '$http',
 function($scope,$http){
   var data = null;
-  $http.get('sample.json').success(function(tdata) {
-    data = tdata;
-    $scope.parks = data.all_data[0].data;
-    $scope.tickets = data.all_data[1].data;
-    $scope.attractions = data.all_data[2].data;
-    $scope.hours = data.all_data[3].data;
-    $scope.employees = data.all_data[4].data;
-  });
+  $scope.login = function(){
+    $http.get('sample.json').success(function(tdata) {
+      data = tdata;
+      $scope.parks = data.all_data[0].data;
+      $scope.tickets = data.all_data[1].data;
+      $scope.attractions = data.all_data[2].data;
+      $scope.hours = data.all_data[3].data;
+      $scope.employees = data.all_data[4].data;
+      $scope.user = data.user_data;
+      $scope.privilege = $scope.user[2].data[0].emp_priv;
+    });
+  }
+
+
+
   $scope.addPark = function(){
     var data = {
       "park_code":$scope.park_code,
@@ -35,6 +42,24 @@ function($scope,$http){
       $scope.ResponseDetails = "An error occured"
     });
   };
+
+  $scope.updatepark = function(data){
+    var url = 'php/edit_park.php';
+    var config = {
+      headers : {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post(url, data, config)
+    .success(function (data, status, headers, config) {
+      $scope.PostDataResponse = "Successfully created new park";
+      $scope.resetpark();
+    })
+    .error(function (data, status, header, config) {
+      $scope.ResponseDetails = "An error occured"
+    });
+  };
+
   $scope.resetpark = function(){
     $scope.park_code = '';
     $scope.park_name = '';
@@ -117,6 +142,75 @@ function($scope,$http){
     $scope.emp_confirm = '';
   }
 
+  $scope.addtickets = function(){
+    var data = {
+      "adults": {"quantity":$scope.adultquantity,"price":$scope.adultprice},
+      "children":{"quantity":$scope.childquantity,"price":$scope.childprice},
+      "seniors":{"quantity":$scope.seniorquantity,"price":$scope.seniorprice},
+      "emp_num": $scope.user[2].data[0].emp_num
+    };
+    var url = 'php/addtickets.php';
+    var config = {
+      headers : {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post(url, data, config)
+    .success(function (data, status, headers, config) {
+      $scope.PostDataResponse = "Successfully created new tickets";
+      $scope.resettickets();
+    })
+    .error(function (data, status, header, config) {
+      $scope.ResponseDetails = "An error occured"
+    });
+  }
+
+  $scope.resetalltickets = function(){
+    $scope.adultprice = 0;
+    $scope.adultquantity = 0;
+    $scope.childprice = 0;
+    $scope.childquantity = 0;
+    $scope.seniorprice = 0;
+    $scope.seniorquantity = 0;
+    $scope.ticket_park_code = '';
+  }
+  $scope.resettickets = function(){
+    $scope.adultquantity = 0;
+    $scope.childquantity = 0;
+    $scope.seniorquantity = 0;
+}
+
+$scope.addhours = function(){
+  var data = {
+    "attract_no": $scope.hour_attraction_code,
+    "date_worked": $scope.date_worked,
+    "hour_rate": $scope.hour_rate,
+    "hours_per_attract": $scope.hours_per_attract,
+    "emp_num": $scope.user[2].data[0].emp_num
+  };
+  var url = 'php/addhours.php';
+  var config = {
+    headers : {
+      'Content-Type': 'application/json;charset=utf-8;'
+    }
+  };
+  $http.post(url, data, config)
+  .success(function (data, status, headers, config) {
+    $scope.PostDataResponse = "Successfully added hours";
+    $scope.resethours();
+  })
+  .error(function (data, status, header, config) {
+    $scope.ResponseDetails = "An error occured"
+  });
+}
+
+$scope.resethours = function(){
+  $scope.hour_attraction_code = '';
+  $scope.date_worked = '';
+  $scope.hour_rate = '';
+  $scope.hours_per_attract = '';
+}
+
   $scope.adultquantity=0;
   $scope.adultprice=0;
   $scope.childquantity=0;
@@ -132,6 +226,8 @@ function($scope,$http){
     }
   }
 }]);
+
+
 
 app.config([
 '$stateProvider',

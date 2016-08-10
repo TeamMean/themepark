@@ -97,26 +97,26 @@
       </thead>
       <tbody>
         <tr>
-          <td><h1>Attractions <span class="label label-primary">{{attractions.length}}</span></h1></td>
+          <td ng-show="privilege==2"><h1>Attractions <span class="label label-primary">{{attractions.length}}</span></h1></td>
           <td><a href="#/newattraction" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/attractions" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
-        <tr>
+        <tr ng-show="privilege==2">
           <td><h1>Employees <span class="label label-primary">{{employees.length}}</span></h1></td>
           <td><a href="#/newemployee" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/employees" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
-        <tr>
+        <tr ng-show="privilege==2">
           <td><h1>Parks <span class="label label-primary">{{parks.length}}</span></h1></td>
           <td><a href="#/newpark" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/parks" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
-        <tr>
+        <tr ng-show="privilege==1">
           <td><h1>Tickets <span class="label label-primary">{{tickets.length}}</span></h1></td>
           <td><a href="#/newticket" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/tickets" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
-        <tr>
+        <tr ng-show="privilege==1">
           <td><h1>Hours <span class="label label-primary">{{hours.length}}</span></h1></td>
           <td><a href="#/newhour" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/hours" class="btn btn-info btn-block btn-lg">View</a></td>

@@ -52,11 +52,11 @@ function($scope,$http){
     };
     $http.post(url, data, config)
     .success(function (data, status, headers, config) {
-      $scope.PostDataResponse = "Successfully created new park";
+      $scope.PostDataResponse = "Successfully made changes to park";
       $scope.resetpark();
     })
     .error(function (data, status, header, config) {
-      $scope.ResponseDetails = "An error occured"
+      $scope.PostDataResponse = "An error occured"
     });
   };
 
@@ -89,6 +89,40 @@ function($scope,$http){
       $scope.ResponseDetails = "An error occured"
     });
   };
+
+  $scope.editattraction = function(data){
+    var url = 'php/edit_attraction.php';
+    var config = {
+      headers : {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post(url, data, config)
+    .success(function (data, status, headers, config) {
+      $scope.PostDataResponse = "Successfully modified attractions";
+      $scope.resetattraction();
+    })
+    .error(function (data, status, header, config) {
+      $scope.ResponseDetails = "An error occured"
+    });
+  };
+
+  $scope.editemployee = function(data){
+    var url = 'php/addemployee.php';
+    var config = {
+      headers : {
+        'Content-Type': 'application/json;charset=utf-8;'
+      }
+    };
+    $http.post(url, data, config)
+    .success(function (data, status, headers, config) {
+      $scope.PostDataResponse = "Successfully created new employee";
+      $scope.resetemployee();
+    })
+    .error(function (data, status, header, config) {
+      $scope.ResponseDetails = "An error occured"
+    });
+  }
   $scope.resetattraction = function(){
     $scope.attraction_no = '';
     $scope.attraction_name = '';

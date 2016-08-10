@@ -72,6 +72,7 @@
     </div><!-- /.container-fluid -->
   </nav>
   <div ng-show="privilege > 0" class="container ng-show">
+    {{PostDataResponse}}
     <ui-view></ui-view>
   </div>
   <div ng-hide="privilege > 0" class="container ng-hide">
@@ -197,11 +198,15 @@
   <tbody>
     <tr ng-repeat="attraction in attractions">
       <td>{{attraction.attract_no}}</td>
-      <td>{{attraction.attract_name}}</td>
-      <td>{{attraction.attract_age}}</td>
-      <td>{{attraction.attract_capacity}}</td>
-      <td><a class="btn btn-info">edit</a></td>
-      <td><a class="btn btn-danger">delete</a></td>
+      <td ng-hide="attraction.edit">{{attraction.attract_name}}</td>
+      <td ng-show="attraction.edit"><input type="text" ng-model="attraction.attract_name" class="form-control"></td>
+      <td ng-hide="attraction.edit">{{attraction.attract_age}}</td>
+      <td ng-show="attraction.edit"><input type="number" ng-model="attraction.attract_age" class="form-control"></td>
+      <td ng-hide="attraction.edit">{{attraction.attract_capacity}}</td>
+      <td ng-show="attraction.edit"><input type="number" ng-model="attraction.attract_capacity" class="form-control"></td>
+      <td ng-hide="attraction.edit"><a ng-click="attraction.edit = true" class="btn btn-warning">Edit</a>
+      <td ng-show="attraction.edit"><a ng-click="updatepark(attraction); attraction.edit=false" class="btn btn-success">Save</a>
+      <td ng-hide="attraction.edit"><a class="btn btn-danger">delete</a></td>
     </tr>
   </tbody>
 </table>
@@ -254,10 +259,20 @@
   <tbody>
     <tr ng-repeat="employee in employees">
       <td>{{employee.emp_num}}</td>
-      <td>{{employee.emp_title}} {{employee.emp_fname}} {{employee.emp_lname}}</td>
-      <td>{{employee.emp_area_code}} {{employee.emp_phone}}</td>
-      <td><a class="btn btn-info">edit</a></td>
-      <td><a class="btn btn-danger">delete</a></td>
+      <td ng-hide="employee.edit">{{employee.emp_title}} {{employee.emp_fname}} {{employee.emp_lname}}</td>
+      <td ng-hide="employee.edit">{{employee.emp_area_code}} {{employee.emp_phone}}</td>
+      <td ng-hide="employee.edit"><a ng-click="employee.edit = true" class="btn btn-info">edit</a></td>
+      <td ng-hide="employee.edit"><a class="btn btn-danger">delete</a></td>
+
+      <td ng-show="employee.edit"><input type="text" ng-model="employee.emp_title" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="text" ng-model="employee.emp_fname" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="text" ng-model="employee.emp_lname" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="text" size="4" ng-model="employee.emp_area_code" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="text" ng-model="employee.emp_phone" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="password" placeholder="password" ng-model="employee.emp_passwd" class="form-control"></td>
+      <td ng-show="employee.edit"><input type="password" placeholder="confirm" ng-model="employee.emp_confirm" class="form-control"></td>
+      <td ng-show="employee.edit"><a ng-click="editemployee(employee); employee.edit = false" class="btn btn-success">Save</a></td>
+
     </tr>
   </tbody>
 </table>
@@ -302,7 +317,7 @@
     <div class="form-group">
       <label for="emp_passwd">Password</label>
       <input type="password" class="form-control" id="emp_passwd" ng-model="emp_passwd" placeholder="Password">
-      <label for="emp_confirm">Password</label>
+      <label for="emp_confirm">Confirm Password</label>
       <input type="password" class="form-control" id="emp_confirm" ng-model="emp_confirm" placeholder="Confirm Password">
     </div>
   </div>

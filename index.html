@@ -83,27 +83,27 @@
       </thead>
       <tbody>
         <tr>
-          <td><h1>Attractions <span class="label label-primary">0</span></h1></td>
+          <td><h1>Attractions <span class="label label-primary">{{attractions.length}}</span></h1></td>
           <td><a href="#/newattraction" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/attractions" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
         <tr>
-          <td><h1>Employees <span class="label label-primary">0</span></h1></td>
+          <td><h1>Employees <span class="label label-primary">{{employees.length}}</span></h1></td>
           <td><a href="#/newemployee" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/employees" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
         <tr>
-          <td><h1>Parks <span class="label label-primary">0</span></h1></td>
+          <td><h1>Parks <span class="label label-primary">{{parks.length}}</span></h1></td>
           <td><a href="#/newpark" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/parks" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
         <tr>
-          <td><h1>Tickets <span class="label label-primary">0</span></h1></td>
+          <td><h1>Tickets <span class="label label-primary">{{tickets.length}}</span></h1></td>
           <td><a href="#/newticket" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/tickets" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
         <tr>
-          <td><h1>Hours <span class="label label-primary">0</span></h1></td>
+          <td><h1>Hours <span class="label label-primary">{{hours.length}}</span></h1></td>
           <td><a href="#/newhour" class="btn btn-success btn-block btn-lg">New</a></td>
           <td><a href="#/hours" class="btn btn-info btn-block btn-lg">View</a></td>
         </tr>
@@ -251,39 +251,46 @@
 <form>
   <div class="col-md-6">
     <div class="form-group">
-      <label for="employeecode">Code</label>
-      <input type="number" class="form-control" name="employeecode" id="employeecode" placeholder="Code">
+      <label for="emp_num">Code</label>
+      <input type="number" class="form-control" ng-model="emp_num" id="emp_num" placeholder="Code">
     </div>
     <div class="form-group">
-      <label for="employeetitle">Title</label>
-      <input type="text" class="form-control" id="employeetitle" name="employeetitle" placeholder="Title">
+      <label for="emp_title">Title</label>
+      <input type="text" class="form-control" id="emp_title" ng-model="emp_title" placeholder="Title">
     </div>
     <div class="form-group">
-      <label for="employeefname">First Name</label>
-      <input type="text" class="form-control" id="employeefname" name="employeefname" placeholder="First Name">
+      <label for="emp_fname">First Name</label>
+      <input type="text" class="form-control" id="emp_fname" ng-model="emp_fname" placeholder="First Name">
     </div>
-    <div class="form-group">
-      <label for="employeelname">Last Name</label>
-      <input type="text" class="form-control" id="employeelname" name="employeelname" placeholder="Last Name">
+    <div class="form-group form">
+      <label for="emp_lname">Last Name</label>
+      <input type="text" class="form-control" id="emp_lname" ng-model="emp_lname" placeholder="Last Name">
     </div>
-    <div class="form-group">
-      <label for="employeetel">Telephone</label>
-      <input type="tel" class="form-control" id="employeentel" name="employeentel" placeholder="Telephone">
+    <div class="form-group form-inline">
+      <label for="emp_area_code">Telephone</label>
+      <input type="text" class="form-control" id="emp_area_code" ng-model="emp_area_code" size="4" placeholder="Area">
+      <input type="text" class="form-control" id="emp_phone" ng-model="emp_phone" placeholder="Telephone">
     </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <label for="employeedob">DOB</label>
-      <input type="date" class="form-control" name="employeedob" id="employeedob" placeholder="DOB">
+      <label for="emp_dob">DOB</label>
+      <input type="date" class="form-control" ng-model="emp_dob" id="emp_dob" placeholder="DOB">
     </div>
     <div class="form-group">
-      <label for="employeehiredate">Hire Date</label>
-      <input type="date" class="form-control" id="employeehiredate" name="employeehiredate" placeholder="Hire Date">
+      <label for="emp_hire_date">Hire Date</label>
+      <input type="date" class="form-control" id="emp_hire_date" ng-model="emp_hire_date" placeholder="Hire Date">
+    </div>
+    <div class="form-group">
+      <label for="emp_passwd">Password</label>
+      <input type="password" class="form-control" id="emp_passwd" ng-model="emp_passwd" placeholder="Password">
+      <label for="emp_confirm">Password</label>
+      <input type="password" class="form-control" id="emp_confirm" ng-model="emp_confirm" placeholder="Confirm Password">
     </div>
   </div>
   <div class="col-md-12">
-    <button type="submit" class="btn btn-success">Save</button>
-    <a role="button" class="btn btn-danger">Reset</a>
+    <a ng-click="addemployee()" class="btn btn-success">Save</a>
+    <a ng-click="resetemployee()" class="btn btn-danger">Reset</a>
   </div>
 </form>
 </script>
@@ -389,19 +396,19 @@
 <form>
   <div class="form-group">
     <label for="hourdate">Date</label>
-    <input type="date" class="form-control" name="hourdate" id="hourdate" placeholder="Date">
+    <input type="date" class="form-control" ng-model="hourdate" id="hourdate" placeholder="Date">
   </div>
   <div class="form-group">
     <label for="hourattraction">Attraction</label>
-    <input type="text" class="form-control" id="hourattraction" name="hourattraction" placeholder="Attraction">
+    <input type="text" class="form-control" id="hourattraction" ng-model="hourattraction" placeholder="Attraction">
   </div>
   <div class="form-group">
     <label for="hourrate">Rate</label>
-    <input type="number" class="form-control" id="hourrate" name="hourrate" placeholder="Rate">
+    <input type="number" class="form-control" id="hourrate" ng-model="hourrate" placeholder="Rate">
   </div>
   <div class="form-group">
     <label for="hourhours">Hours</label>
-    <input type="number" class="form-control" id="hourhours" name="hourhours" placeholder="Hours">
+    <input type="number" class="form-control" id="hourhours" ng-model="hourhours" placeholder="Hours">
   </div>
   <button type="submit" class="btn btn-success">Save</button>
   <a role="button" class="btn btn-danger">Reset</a>
@@ -414,11 +421,11 @@
 <form>
   <div class="form-group">
     <label for="loginnumber">Employee Number</label>
-    <input type="number" class="form-control" id="loginnumber" name="loginnumber" placeholder="Employee Number"\>
+    <input type="number" class="form-control" id="loginnumber" ng-model="loginnumber" placeholder="Employee Number"\>
   </div>
   <div class="form-group">
     <label for="loginpassword">Password</label>
-    <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Password"\>
+    <input type="password" class="form-control" id="loginpassword" ng-model="loginpassword" placeholder="Password"\>
   </div>
   <button type="submit" class="btn btn-success">Login</button>
 </script>

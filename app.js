@@ -71,6 +71,52 @@ function($scope,$http){
     $scope.attraction_capacity = '';
     $scope.attraction_park_code = '';
   }
+
+  $scope.addemployee = function(){
+    if($scope.emp_passwd===$scope.emp_confirm){
+      var data = {
+        "emp_num":$scope.emp_num,
+        "emp_title":$scope.emp_title,
+        "emp_fname":$scope.emp_fname,
+        "emp_lname":$scope.emp_lname,
+        "emp_area_code":$scope.emp_area_code,
+        "emp_phone":$scope.emp_phone,
+        "emp_dob":$scope.emp_dob,
+        "emp_hire_date":$scope.emp_hire_date,
+        "emp_passwd":$scope.emp_passwd
+      };
+      var url = 'php/addemployee.php';
+      var config = {
+        headers : {
+          'Content-Type': 'application/json;charset=utf-8;'
+        }
+      };
+      $http.post(url, data, config)
+      .success(function (data, status, headers, config) {
+        $scope.PostDataResponse = "Successfully created new employee";
+        $scope.resetemployee();
+      })
+      .error(function (data, status, header, config) {
+        $scope.ResponseDetails = "An error occured"
+      });
+    } else {
+      $scope.ResponseDetails = 'Passwords do not match';
+    }
+  }
+
+  $scope.resetemployee = function(){
+    $scope.emp_num = '';
+    $scope.emp_title = '';
+    $scope.emp_fname = '';
+    $scope.emp_lname = '';
+    $scope.emp_area_code = '';
+    $scope.emp_phone = '';
+    $scope.emp_dob = '';
+    $scope.emp_hire_date = '';
+    $scope.emp_passwd = '';
+    $scope.emp_confirm = '';
+  }
+
   $scope.adultquantity=0;
   $scope.adultprice=0;
   $scope.childquantity=0;
